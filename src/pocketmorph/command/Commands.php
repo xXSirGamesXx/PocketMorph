@@ -18,7 +18,7 @@ class Commands {
 		return $this->plugin;
 	}
 	
-	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
+	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
 		$types = [
 		 "Chicken",
 		 "Pig",
@@ -53,20 +53,24 @@ class Commands {
 				if(count($args) > 0) {
 					if(!isset($args[0])) {
 						$sender->sendMessage(TextFormat::GREEN . "Type '/morph help' for a list of commands");
+						return true;
 					} else {						
 						if(strtolower($args[0]) == "list") {
 							$sender->sendMessage(TextFormat::GREEN . "Entities: " . implode(',', $types));
+							return true;
 						}
 						
 						if(strtolower($args[0]) == "remove") {
 							if($this->getPlugin()->getMorphManager()->isMorphed($sender)) {
 								$sender->sendMessage(TextFormat::GREEN . "Morph removed");
 								$this->getPlugin()->getMorphManager()->removeMorph($sender); 
+								return true;
 							}
 						}
 						
 						if(strtolower($args[0]) == "help") {
 							$sender->sendMessage(TextFormat::GREEN . "PocketMorph help\n- /morph help\n- /morph remove\n- /morph <entity>\n- /morph list");
+							return true;
 						}
 						
 						foreach ($types as $type) {								 
@@ -76,16 +80,19 @@ class Commands {
 									$this->getPlugin()->getMorphManager()->removeMorph($sender); 
 									$this->getPlugin()->getMorphManager()->setMorph($sender, $typeStr);
 									$sender->sendMessage(TextFormat::GREEN . "You morphed into a " . $args[0]);
+									return true;
 								 } else {
 									$this->getPlugin()->getMorphManager()->setMorph($sender, $typeStr);
-									$sender->sendMessage(TextFormat::GREEN . "You morphed into a " . $args[0]);									 
+									$sender->sendMessage(TextFormat::GREEN . "You morphed into a " . $args[0]);
+									return true;
 								 }
 							 } 
 						}
 
 						if(strtolower($args[0]) !== "help" && strtolower($args[0]) !== "remove" && strtolower($args[0]) !== "list") {
 							if(!in_array($args[0], $types)) {
-								$sender->sendMessage(TextFormat::RED . "No such entity, type '/morph list' for a list of all available entities, or '/morph help' for a list of commands");								 
+								$sender->sendMessage(TextFormat::RED . "No such entity, type '/morph list' for a list of all available entities, or '/morph help' for a list of commands");
+								return true;
 								
 							}
 						}
@@ -93,6 +100,7 @@ class Commands {
 				}
 			}
 		}
+		return true;
 	}
 }
 	
