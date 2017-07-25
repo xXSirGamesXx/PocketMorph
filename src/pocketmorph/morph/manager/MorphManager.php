@@ -12,8 +12,8 @@ use pocketmine\nbt\tag\FloatTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\protocol\RemovePlayerPacket;
-use pocketmine\network\protocol\AddPlayerPacket;
+use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
+use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmorph\PocketMorph;
 use pocketmine\Server;
 use pocketmine\utils\UUID;
@@ -37,7 +37,7 @@ class MorphManager {
 		$player->yaw, $player->pitch
 		);
 		
-		$pk = new RemovePlayerPacket();
+		$pk = new RemoveEntityPacket();
 		$pk->entityRuntimeId = $player->getId();
 		$pk->clientId = UUID::fromData($player->getId(), $player->getName());
 		
