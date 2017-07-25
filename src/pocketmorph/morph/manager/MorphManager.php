@@ -38,7 +38,7 @@ class MorphManager {
 		);
 		
 		$pk = new RemovePlayerPacket();
-		$pk->eid = $player->getId();
+		$pk->entityRuntimeId = $player->getId();
 		$pk->clientId = UUID::fromData($player->getId(), $player->getName());
 		
 		foreach(Server::getInstance()->getOnlinePlayers() as $p) {
@@ -72,7 +72,7 @@ class MorphManager {
 		if($this->isMorphed($player)) {
 			$pk = new AddPlayerPacket();
 			
-			$pk->eid = $player->getId();
+			$pk->entityRuntimeId = $player->getId();
 			$pk->x = $player->x;
 			$pk->y = $player->y;
 			$pk->z = $player->z;
@@ -104,7 +104,7 @@ class MorphManager {
 		$entity->setNameTag($player->getNameTag());
 		
 		$pk = new RemovePlayerPacket();
-		$pk->eid = $player->getId();
+		$pk->entityRuntimeId = $player->getId();
 		$pk->clientId = UUID::fromData($player->getId(), $player->getName());
 		
 		foreach(Server::getInstance()->getOnlinePlayers() as $p) {
