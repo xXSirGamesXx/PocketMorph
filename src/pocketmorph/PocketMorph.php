@@ -70,10 +70,11 @@ class PocketMorph extends PluginBase {
 		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
 	}
 	
-	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
+	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool{
 	        $cmds = new Commands($this);
 		
 		$cmds->onCommand($sender,$cmd, $label,$args);
+		return true;
 	}
 	
 	
